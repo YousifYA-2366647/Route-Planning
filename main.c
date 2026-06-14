@@ -425,22 +425,22 @@ int main() {
 
     //heap_performance_test(30, 10);
 
-    //known_graph_performance_test(1, 1);
+    known_graph_performance_test(1, 1);
 
     //test_algorithms();
 
-    PairingHeap* heap = create_pairingheap();
+    // PairingHeap* heap = create_pairingheap();
 
-    for (int i = 0; i < 20; i++) {
-        insert_pairingheap_element(heap, ((float)rand()/(float)RAND_MAX), i);
-    }
+    // for (int i = 0; i < 20; i++) {
+    //     insert_pairingheap_element(heap, ((float)rand()/(float)RAND_MAX), i);
+    // }
 
-    delete_min_pairing(heap);
-    delete_min_pairing(heap);
+    // delete_min_pairing(heap);
+    // delete_min_pairing(heap);
 
-    print_pairingheap(heap);
+    // print_pairingheap(heap);
 
-    free_pairingheap(heap);
+    // free_pairingheap(heap);
 
     return 0;
 }
