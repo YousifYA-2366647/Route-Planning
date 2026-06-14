@@ -5,3 +5,4 @@
 *.ods
 Resources/roadNet-CA.txt
 Resources/roadNet-PA.txt
+nodes.csv
