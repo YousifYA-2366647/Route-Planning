@@ -102,16 +102,10 @@ void load_random_connected_graph(Graph* graph, int edgeAmount, int degree) {
 }
 
 long** load_random_graph_coords(Graph* graph, int edgeAmount, int degree) {
-    /* Allocate coordinate arrays: coords[0] = latitudes, coords[1] = longitudes
-       Both as scaled longs: multiply by 1,000,000 for ~1m precision.
-       Example: 51.052080 N -> 51052080L, 3.720930 E -> 3720930L           */
     long** coords = malloc(2 * sizeof(long*));
     coords[0] = malloc(graph->vertexAmount * sizeof(long));  /* latitudes  */
     coords[1] = malloc(graph->vertexAmount * sizeof(long));  /* longitudes */
 
-    /* Bounding box: Western Europe (Belgium, Netherlands, France, Germany).
-       Lat:  48.0 – 53.5 N  ->  48000000 – 53500000
-       Lon:   2.5 –  9.5 E  ->   2500000 –  9500000                        */
     long lat_min =  48000000L, lat_range = 5500000L;
     long lon_min =   2500000L, lon_range = 7000000L;
 
@@ -133,7 +127,7 @@ long** load_random_graph_coords(Graph* graph, int edgeAmount, int degree) {
     }
 
     free(vertices);
-    return coords;   /* caller must free coords[0], coords[1], and coords */
+    return coords;
 }
 
 void load_realistic_random_graph(Graph* graph, int edgeAmount) {
