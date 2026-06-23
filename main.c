@@ -12,6 +12,7 @@ typedef struct {
     float stdDev;
 } Stats;
 
+// Calculates the mean, variance and standard deviation of a series of experiments
 Stats calculate_stats(float* data, int n) {
     Stats s = {0};
     if (n <= 0) return s;
@@ -31,6 +32,7 @@ Stats calculate_stats(float* data, int n) {
     return s;
 }
 
+// Tests Dijkstra's algorithm 
 void test_dijkstra(
     int iterations, int benchmarks, Graph* graph, long** coords, int* sources, int* targets
 ) {
@@ -44,15 +46,17 @@ void test_dijkstra(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = Dijkstra_min(graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -72,6 +76,7 @@ void test_dijkstra(
     }
 }
 
+// Tests the Binary Min-Heap on Dijkstra's algorithm
 void test_dijkstra_min(
     int iterations, int benchmarks, Graph* graph, long** coords, int* sources, int* targets
 ) {
@@ -85,15 +90,17 @@ void test_dijkstra_min(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = Dijkstra_min(graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -113,6 +120,7 @@ void test_dijkstra_min(
     }
 }
 
+// Tests the Fibonacci Heap on Dijkstra's algorithm
 void test_dijkstra_fib(
     int iterations, int benchmarks, Graph* graph, long** coords, int* sources, int* targets
 ) {
@@ -126,15 +134,17 @@ void test_dijkstra_fib(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = Dijkstra_fib(graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -154,6 +164,7 @@ void test_dijkstra_fib(
     }
 }
 
+// Tests the Pairing Heap on Dijkstra's algorithm
 void test_dijkstra_pairing(
     int iterations, int benchmarks, Graph* graph, long** coords, int* sources, int* targets
 ) {
@@ -167,15 +178,17 @@ void test_dijkstra_pairing(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = Dijkstra_pairing(graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -195,6 +208,7 @@ void test_dijkstra_pairing(
     }
 }
 
+// Tests Bidirectional Dijkstra
 void test_bidirectional_dijkstra(
     int iterations, int benchmarks, Graph* graph, Graph* reversed_graph, long** coords, int* sources, int* targets
 ) {
@@ -208,15 +222,17 @@ void test_bidirectional_dijkstra(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = Bidirectional_Dijkstra_min(graph, reversed_graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -236,6 +252,7 @@ void test_bidirectional_dijkstra(
     }
 }
 
+// Tests A*
 void test_A_star(
     int iterations, int benchmarks, Graph* graph, long** coords, int* sources, int* targets
 ) {
@@ -249,17 +266,17 @@ void test_A_star(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
-        // int source = 478530;
-        // int target = 151260;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = A_Star_min(graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -279,6 +296,7 @@ void test_A_star(
     }
 }
 
+// Tests Bidirectional A*
 void test_bidirectional_A_star(
     int iterations, int benchmarks, Graph* graph, Graph* reversed_graph, long** coords, int* sources, int* targets
 ) {
@@ -292,15 +310,17 @@ void test_bidirectional_A_star(
     for (int i = 1; i <= benchmarks; i++) {
 
         float* times = malloc(iterations * sizeof(float));
-        uint64_t* visits = calloc(iterations, sizeof(uint64_t));
+        uint32_t* visits = calloc(iterations, sizeof(uint32_t));
 
         int source = sources[i-1];
         int target = targets[i-1];
+
+        // Static source-target pair used for the visualisation script
         // int source = 478530;
         // int target = 1719333;
 
         for (int j = 0; j < iterations; j++) {
-
+            // Measure time taken and visited nodes while the algorithm runs.
             clock_t s2 = clock();
             RouteResult* result = Bidirectional_A_Star_min(graph, reversed_graph, coords, source, target);
             times[j] = (float)(clock() - s2) / CLOCKS_PER_SEC;
@@ -320,17 +340,24 @@ void test_bidirectional_A_star(
     }
 }
 
-void known_graph_performance_test(int iterations, int benchmarks) {
+// Tests all route-planning algorithms and heap structures on a road network.
+// Generates 'benchmarks' amount of source-target pairs to test the algorithms on, and tests each pair 'iterations' times.
+// Total tests: benchmarks * iterations
+void performance_test(int iterations, int benchmarks) {
     srand((unsigned int)time(NULL));
 
-    int vertices = 1890815;
-    //int vertices = 264346;
-    //int vertices = 10000, edges = 1000000;
+    int vertices = 1890815;                     // Amount of vertices in the California road network, comment out when using the California road network.
+    //int vertices = 264346;                    // Amount of vertices in the New York road network, comment out when using the New York road network.
+    //int vertices = 10000, edges = 1000000;    // Amount of vertices in the random graph, can be changed as needed.
 
     Graph* graph = create_graph(vertices, 10000, true);
+
+    // Load in the coordinates of vertices in the road networks, comment out when needed.
     long** coords = load_graph_dimacs(graph, "./Resources/USA-road-d.CAL.gr", "./Resources/USA-road-d.CAL.co");
     //long** coords = load_graph_dimacs(graph, "./Resources/USA-road-d.NY.gr", "./Resources/USA-road-d.NY.co");
-    //long** coords = load_random_graph_coords(graph, edges, (int)(log(edges) + 0.5));
+    // long** coords = load_random_graph_coords(graph, edges, (int)(log(edges) + 0.5));  // UNUSED: coordinates are meaningless in random graphs
+
+    // Reversed graph for bidirectional search
     Graph* reversed_graph = graph->directed ? reverse_graph(graph): graph;
 
     int* sources = malloc(benchmarks * sizeof(int));
@@ -338,37 +365,28 @@ void known_graph_performance_test(int iterations, int benchmarks) {
 
     printf("Sources | Targets\n");
     for (int i = 1; i <= benchmarks; i++) {
-        sources[i-1] = 378530; // just a source that is in the middle of california
-        //sources[i-1] = 164346; // just a source that is in the middle of new york
-        //sources[i-1] = vertices/2; // just a source that is in the middle of the random graph
-        //sources[i-1] = rand() % vertices; // random source
+        sources[i-1] = 378530;                                      // randomly chosen node in the middle of California
+        //sources[i-1] = 164346;                                    // randomly chosen node in the middle of New York
+        //sources[i-1] = vertices/2;                                // randomly chosen node in the middle of a random graph
+        //sources[i-1] = rand() % vertices;                         // random source
 
-        //targets[i-1] = (i * (vertices / benchmarks)) % vertices;
-        //targets[i-1] = rand() % vertices; // random target
-        targets[i-1] = 178530;
+        targets[i-1] = (i * (vertices / benchmarks)) % vertices;    // uniformly chosen nodes
+        //targets[i-1] = rand() % vertices;                         // random target
+        //targets[i-1] = 178530;                                    // randomly chosen node at the outskirts of California
+
         printf("%-7d | %d\n", sources[i-1], targets[i-1]);
     }
 
-    // FILE* stFile = fopen("sources_targets.txt", "r");
-
-    // int counter = 0;
-    // while (fscanf(stFile, "%d %d", &sources[counter], &targets[counter]) == 2) {
-    //     counter++;
-    //     if (counter >= benchmarks) {
-    //         break;
-    //     }
-    // }
-
-    // fclose(stFile);
-
-    //test_dijkstra(iterations, benchmarks, graph, coords, sources, targets);
-    //test_bidirectional_dijkstra(iterations, benchmarks, graph, reversed_graph, coords, sources, targets);
-    //test_A_star(iterations, benchmarks, graph, coords, sources, targets);
+    // Test each algorithm
+    test_dijkstra(iterations, benchmarks, graph, coords, sources, targets);
+    test_bidirectional_dijkstra(iterations, benchmarks, graph, reversed_graph, coords, sources, targets);
+    test_A_star(iterations, benchmarks, graph, coords, sources, targets);
     test_bidirectional_A_star(iterations, benchmarks, graph, reversed_graph, coords, sources, targets);
     
-    // test_dijkstra_min(iterations, benchmarks, graph, coords, sources, targets);
-    // test_dijkstra_fib(iterations, benchmarks, graph, coords, sources, targets);
-    // test_dijkstra_pairing(iterations, benchmarks, graph, coords, sources, targets);
+    // Test each heap structure on Dijkstra
+    test_dijkstra_min(iterations, benchmarks, graph, coords, sources, targets);
+    test_dijkstra_fib(iterations, benchmarks, graph, coords, sources, targets);
+    test_dijkstra_pairing(iterations, benchmarks, graph, coords, sources, targets);
 
     if (graph->directed) free_graph(reversed_graph);
     free(sources);
@@ -381,66 +399,8 @@ void known_graph_performance_test(int iterations, int benchmarks) {
 
 int main() {
     srand(time(NULL));
-    //Graph* graph = create_graph(1000, 100, false);
 
-    //load_random_connected_graph(graph, 2000, 2);
-
-    //load_erdos_renyi_model_graph(graph, 250, 0.1f);
-
-    //load_realistic_random_graph(graph, 150);
-
-    //load_graph_from_csv(graph, "./Resources/graphInfo.csv");
-
-    //load_grid_graph(graph, 4, 0.6f);
-
-    //load_graph_stanford(graphCA, "./Resources/roadNet-CA.txt");
-
-
-    // int source = 0, target = 300;
-
-    // RouteResult* dResult = Dijkstra_min(graphCA, source, target);
-
-    // print_graph(graphCA);
-    // //print_graph(graph);
-    // printf("---\n");
-
-    // if (dResult) {
-    //     int curNode = target;
-    //     while (dResult->path[curNode] != -1) {
-    //         printf("%d %d\n", curNode, dResult->path[curNode]);
-    //         curNode = dResult->path[curNode];
-    //     }
-    //     free(dResult);
-    // }
-
-    //print_graph_descriptive(graph);
-
-    //save_graph_to_csv(graph, "./Resources/graphInfo.csv");
-
-    //free_graph(graph);
-
-    //load_random_connected_graph(graph, 350);
-
-    //load_grid_graph(graph, 4, 0.1f);
-
-    //heap_performance_test(30, 10);
-
-    //known_graph_performance_test(1, 1);
-
-    //test_algorithms();
-
-    PairingHeap* heap = create_pairingheap();
-
-    for (int i = 0; i < 20; i++) {
-        insert_pairingheap_element(heap, ((float)rand()/(float)RAND_MAX), i);
-    }
-
-    delete_min_pairing(heap);
-    delete_min_pairing(heap);
-
-    print_pairingheap(heap);
-
-    free_pairingheap(heap);
+    performance_test(1, 1);
 
     return 0;
 }

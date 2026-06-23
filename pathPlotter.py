@@ -8,18 +8,18 @@ def plot_california_nodes(file_path, output_path="california_graph_render.png"):
     print("Loading data...")
     df = pd.read_csv(file_path)
 
-    # --- Ensure required columns exist ---
+    # Check if all columns exist in CSV-file
     required_cols = {'xCoord', 'yCoord', 'visited', 'onPath'}
     if not required_cols.issubset(df.columns):
         raise ValueError(f"CSV must contain columns: {required_cols}")
 
-    # --- Convert to correct types ---
+    # Convert columns to correct types
     df['xCoord'] = df['xCoord'].astype(float)
     df['yCoord'] = df['yCoord'].astype(float)
     df['visited'] = df['visited'].astype(int)
     df['onPath'] = df['onPath'].astype(bool)
 
-    # --- Bounds ---
+    # Check the bounds of the coordinates
     x_min, x_max = df['xCoord'].min(), df['xCoord'].max()
     y_min, y_max = df['yCoord'].min(), df['yCoord'].max()
 
@@ -33,12 +33,12 @@ def plot_california_nodes(file_path, output_path="california_graph_render.png"):
         y_range=(y_min, y_max)
     )
 
-    # --- Split data ---
+    # Split data based on conditions
     onpath_df = df[df['onPath'] == True]
     visited_df = df[(df['visited'] == 1) & (df['onPath'] == False)]
     unvisited_df = df[(df['visited'] == 0) & (df['onPath'] == False)]
 
-    # --- Render Unvisited Nodes (gray) ---
+    # Render unvisited nodes (grey)
     print("Rendering unvisited nodes...")
     agg_u = cvs.points(unvisited_df, 'xCoord', 'yCoord', agg=ds.count())
     img_u = tf.shade(
@@ -48,7 +48,7 @@ def plot_california_nodes(file_path, output_path="california_graph_render.png"):
     )
     base_img = img_u.to_pil().convert("RGBA")
 
-    # --- Render Visited Nodes (green) ---
+    # Render visited nodes (green)
     if not visited_df.empty:
         print(f"Rendering {len(visited_df)} visited nodes...")
         agg_v = cvs.points(visited_df, 'xCoord', 'yCoord', agg=ds.count())
@@ -60,7 +60,8 @@ def plot_california_nodes(file_path, output_path="california_graph_render.png"):
         pil_v = img_v.to_pil().convert("RGBA")
         base_img = Image.alpha_composite(base_img, pil_v)
 
-    # --- Render Path Nodes (red, highest priority) ---
+    # Render path nodes (red)
+    # Render these last so they won't be recoloured by something else
     if not onpath_df.empty:
         print(f"Rendering {len(onpath_df)} path nodes...")
         agg_p = cvs.points(onpath_df, 'xCoord', 'yCoord', agg=ds.count())
@@ -68,27 +69,26 @@ def plot_california_nodes(file_path, output_path="california_graph_render.png"):
         # 1. Create the base shaded image
         img_p = tf.shade(
             agg_p,
-            cmap=["#FF0000", "#FF0000"], # Use solid red for path
+            cmap=["#FF0000", "#FF0000"],
             how="linear"
         )
         
-        # 2. SPREAD the pixels (make them thicker)
-        # px=2 means a 5x5 square for every point (radius of 2)
+        # 2. Make pixels thicker for visibility
         img_p = tf.spread(img_p, px=1, shape='circle') 
         
         pil_p = img_p.to_pil().convert("RGBA")
         base_img = Image.alpha_composite(base_img, pil_p)
 
-    # --- Add black background ---
+    # Add black background
     print("Applying background...")
     background = Image.new("RGBA", base_img.size, (0, 0, 0, 255))
     final_img = Image.alpha_composite(background, base_img)
 
-    # --- Save ---
+    # Save image to the output path
     print(f"Saving to {output_path}...")
     final_img.save(output_path)
 
-    print("Done!")
+    print("Done")
 
 
 if __name__ == "__main__":

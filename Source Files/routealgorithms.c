@@ -12,7 +12,7 @@
 #define DECIMETER_PER_METER 10.0
 
 #define DEBUG 0
-#define DRAW 1
+#define DRAW 0
 
 static FILE* g_log_file = NULL;
 
@@ -186,7 +186,7 @@ RouteResult* DFS(Graph* graph, int source, int target) {
 }
 
 RouteResult* Dijkstra_min(Graph* graph, long** coords, int source, int target) {
-    debug_init("dijkstra_log.txt");
+    if (DEBUG) debug_init("dijkstra_log.txt");
 
     if (source == target || source < 0 || source >= graph->vertexAmount || target < 0 || target >= graph->vertexAmount) {
         return NULL;
@@ -399,7 +399,7 @@ RouteResult* Dijkstra_fib(Graph* graph, long** coords, int source, int target) {
 }
 
 RouteResult* Dijkstra_pairing(Graph* graph, long** coords, int source, int target) {
-    debug_init("dijkstra.txt");
+    if (DEBUG) debug_init("dijkstra.txt");
     
     if (source == target || source < 0 || source >= graph->vertexAmount || target < 0 || target >= graph->vertexAmount) {
         return NULL;
@@ -571,7 +571,7 @@ RouteResult** Dijsktra_all_pairs(Graph* graph, int source) {
 }
 
 RouteResult* Bidirectional_Dijkstra_min(Graph* graph, Graph* reversedGraph, long** coords, int source, int target) {
-    debug_init("bidijkstra_log.txt");
+    if (DEBUG) debug_init("bidijkstra_log.txt");
     if (source == target || source < 0 || source >= graph->vertexAmount || target < 0 || target >= graph->vertexAmount) {
         return NULL;
     }
@@ -834,7 +834,7 @@ RouteResult* A_Star_min(Graph* graph, long** coords, int source, int target) {
         return NULL;
     }
 
-    debug_init("A_star_log.txt");
+    if (DEBUG) debug_init("A_star_log.txt");
 
     long* xCoords = coords[0];
     long* yCoords = coords[1];
