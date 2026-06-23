@@ -25,7 +25,9 @@ for sparse road networks.
 pip install pandas datashader pillow
 ```
 
-The DIMACS graphs can be downloaded [here](https://www.diag.uniroma1.it/~challenge9/download.shtml)
+Compressed folders containing the California and New York road networks can be found in the `Resources` folder. These must be unpacked first before running the tests.
+
+Other DIMACS graphs can be downloaded [here](https://www.diag.uniroma1.it/~challenge9/download.shtml)
 
 ### Running the performance tests
 
